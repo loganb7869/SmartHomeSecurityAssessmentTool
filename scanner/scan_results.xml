@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///C:/Program Files (x86)/Nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.993 scan initiated Thu Nov  5 13:56:00 2026 as: nmap -oX - -sS -sV -&#45;version-light -O -&#45;osscan-limit -&#45;top-ports 100 -T4 192.168.1.1 192.168.1.4 192.168.1.5 -->
+<nmaprun scanner="nmap" args="nmap -oX - -sS -sV -&#45;version-light -O -&#45;osscan-limit -&#45;top-ports 100 -T4 192.168.1.1 192.168.1.4 192.168.1.5" start="1793912160" startstr="Thu Nov  5 13:56:00 2026" version="7.993" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="100" services="7,9,13,21-23,25-26,37,53,79-81,88,106,110-111,113,119,135,139,143-144,179,199,389,427,443-445,465,513-515,543-544,548,554,587,631,646,873,990,993,995,1025-1029,1110,1433,1720,1723,1755,1900,2000-2001,2049,2121,2717,3000,3128,3306,3389,3986,4899,5000,5009,5051,5060,5101,5190,5357,5432,5631,5666,5800,5900,6000-6001,6646,7070,8000,8008-8009,8080-8081,8443,8888,9100,9999-10000,32768,49152-49157"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<hosthint><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.1.1" addrtype="ipv4"/>
+<address addr="3C:37:86:C0:04:E6" addrtype="mac" vendor="Netgear"/>
+<hostnames>
+</hostnames>
+</hosthint>
+<hosthint><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.1.5" addrtype="ipv4"/>
+<address addr="6A:32:01:20:EA:9D" addrtype="mac"/>
+<hostnames>
+</hostnames>
+</hosthint>
+<host starttime="1793912174" endtime="1793912209"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.1.1" addrtype="ipv4"/>
+<address addr="3C:37:86:C0:04:E6" addrtype="mac" vendor="Netgear"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="94">
+<extrareasons reason="reset" count="94" proto="tcp" ports="7,9,13,22-23,25-26,37,79,81,88,106,110-111,113,119,135,139,143-144,179,199,389,427,444-445,465,513-515,543-544,548,554,587,646,873,990,993,995,1025-1029,1110,1433,1720,1723,1755,1900,2000-2001,2049,2121,2717,3000,3128,3306,3389,3986,4899,5009,5051,5060,5101,5190,5357,5432,5631,5666,5800,5900,6000-6001,6646,7070,8000,8008-8009,8080-8081,8443,8888,9100,9999-10000,32768,49152-49157"/>
+</extraports>
+<port protocol="tcp" portid="21"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ftp" product="Bftpd" version="1.6.6" hostname="192.168.1.1" method="probed" conf="10"><cpe>cpe:/a:jesse_smith:bftpd:1.6.6</cpe></service></port>
+<port protocol="tcp" portid="53"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="domain" product="dnsmasq" version="2.78" method="probed" conf="10"><cpe>cpe:/a:thekelleys:dnsmasq:2.78</cpe></service></port>
+<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="tcpwrapped" method="probed" conf="8"/></port>
+<port protocol="tcp" portid="443"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="tcpwrapped" method="probed" conf="8"/></port>
+<port protocol="tcp" portid="631"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ipp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="5000"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="tcpwrapped" method="probed" conf="8"/></port>
+</ports>
+<os><portused state="open" proto="tcp" portid="21"/>
+<portused state="closed" proto="tcp" portid="7"/>
+<portused state="closed" proto="udp" portid="34139"/>
+<osmatch name="Linux 2.6.19 - 2.6.36" accuracy="97" line="54267">
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.6.X" accuracy="97"><cpe>cpe:/o:linux:linux_kernel:2.6</cpe></osclass>
+</osmatch>
+<osmatch name="Linux 2.6.32 - 2.6.35" accuracy="96" line="60113">
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.6.X" accuracy="96"><cpe>cpe:/o:linux:linux_kernel:2.6</cpe></osclass>
+</osmatch>
+<osmatch name="ZyXEL Keenetic Giga WAP 2.04 - 2.05" accuracy="95" line="115851">
+<osclass type="WAP" vendor="ZyXEL" osfamily="embedded" accuracy="95"/>
+</osmatch>
+<osmatch name="Linux 2.6.32" accuracy="95" line="58216">
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.6.X" accuracy="95"><cpe>cpe:/o:linux:linux_kernel:2.6.32</cpe></osclass>
+</osmatch>
+<osmatch name="Linux 2.6.17 - 2.6.36" accuracy="94" line="52581">
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.6.X" accuracy="94"><cpe>cpe:/o:linux:linux_kernel:2.6</cpe></osclass>
+</osmatch>
+<osmatch name="Linux 2.6.24 - 2.6.36" accuracy="94" line="56335">
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.6.X" accuracy="94"><cpe>cpe:/o:linux:linux_kernel:2.6</cpe></osclass>
+</osmatch>
+<osmatch name="Linux 2.6.9 - 2.6.33" accuracy="94" line="63177">
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.6.X" accuracy="94"><cpe>cpe:/o:linux:linux_kernel:2.6</cpe></osclass>
+</osmatch>
+<osmatch name="DD-WRT v23 - v24-sp2 (Linux 2.4.20 - 2.4.37)" accuracy="94" line="50330">
+<osclass type="WAP" vendor="Linux" osfamily="Linux" osgen="2.4.X" accuracy="94"><cpe>cpe:/o:linux:linux_kernel:2.4</cpe></osclass>
+</osmatch>
+<osmatch name="Linux 2.6.16 - 2.6.35 (embedded)" accuracy="94" line="52278">
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.6.X" accuracy="94"><cpe>cpe:/o:linux:linux_kernel:2.6</cpe></osclass>
+</osmatch>
+<osmatch name="Linux 2.6.22" accuracy="94" line="55301">
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.6.X" accuracy="94"><cpe>cpe:/o:linux:linux_kernel:2.6.22</cpe></osclass>
+</osmatch>
+<osfingerprint fingerprint="OS:SCAN(V=7.993%E=4%D=11/5%OT=21%CT=7%CU=34139%PV=Y%DS=1%DC=D%G=Y%M=3C3786%&#xa;OS:TM=6AECED91%P=i686-pc-windows-windows)SEQ(CI=Z)SEQ(SP=BE%GCD=1%ISR=CD%TI&#xa;OS:=Z%CI=Z%TS=7)SEQ(SP=CB%GCD=1%ISR=D1%TI=Z%CI=Z%II=I%TS=7)OPS(O1=M5B4ST11N&#xa;OS:W6%O2=M5B4ST11NW6%O3=M5B4NNT11NW6%O4=M5B4ST11NW6%O5=M5B4ST11NW6%O6=M5B4S&#xa;OS:T11)WIN(W1=16A0%W2=16A0%W3=16A0%W4=16A0%W5=16A0%W6=16A0)ECN(R=N)ECN(R=Y%&#xa;OS:DF=Y%T=40%W=16D0%O=M5B4NNSNW6%CC=Y%Q=)T1(R=N)T1(R=Y%DF=Y%T=40%S=O%A=S+%F&#xa;OS:=AS%RD=0%Q=)T2(R=N)T3(R=N)T3(R=Y%DF=Y%T=40%W=16A0%S=O%A=S+%F=AS%O=M5B4ST&#xa;OS:11NW6%RD=0%Q=)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=196C7D95%Q=)T4(R=Y%&#xa;OS:DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=24B9356%Q=)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%&#xa;OS:F=R%O=%RD=35D6CAD2%Q=)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=520D0438%Q=&#xa;OS:)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=679EAF34%Q=)T5(R=Y%DF=Y%T=40%W=0&#xa;OS:%S=Z%A=S+%F=AR%O=%RD=39A6C572%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%R&#xa;OS:D=3BD48D1%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=A28A3ADD%Q=)T5(R=Y&#xa;OS:%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=BC984A80%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%&#xa;OS:A=S+%F=AR%O=%RD=E52EC1B4%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=869A6&#xa;OS:40C%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=B309CF00%Q=)T6(R=Y%DF=Y%T=&#xa;OS:40%W=0%S=A%A=Z%F=R%O=%RD=BD222B42%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=&#xa;OS:%RD=CDFB1DA1%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=ECEA7289%Q=)T7(R=&#xa;OS:Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=264E3ADB%Q=)T7(R=Y%DF=Y%T=40%W=0%S=Z&#xa;OS:%A=S+%F=AR%O=%RD=61EAC1B2%Q=)T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=7F&#xa;OS:F8B1EF%Q=)T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=A72A6F11%Q=)T7(R=Y%DF&#xa;OS:=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=C0DDB3BE%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=&#xa;OS:0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=N)IE(R=Y%DFI=N%T=40%CD=S)&#xa;"/>
+</os>
+<distance value="1"/>
+<times srtt="15037" rttvar="21389" to="100593"/>
+</host>
+<host starttime="1793912174" endtime="1793912209"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.1.5" addrtype="ipv4"/>
+<address addr="6A:32:01:20:EA:9D" addrtype="mac"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="99">
+<extrareasons reason="reset" count="99" proto="tcp" ports="7,9,13,21-23,25-26,37,53,79-81,88,106,110-111,113,119,135,139,143-144,179,199,389,427,443-445,465,513-515,543-544,548,554,587,631,646,873,990,993,995,1025-1029,1110,1433,1720,1723,1755,1900,2000-2001,2049,2121,2717,3000,3128,3306,3389,3986,4899,5000,5009,5051,5060,5101,5190,5357,5432,5631,5666,5800,5900,6000-6001,6646,7070,8000,8008-8009,8080-8081,8443,8888,9100,9999-10000,32768,49153-49157"/>
+</extraports>
+<port protocol="tcp" portid="49152"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="tcpwrapped" method="probed" conf="8"/></port>
+</ports>
+<os><portused state="open" proto="tcp" portid="49152"/>
+<portused state="closed" proto="tcp" portid="7"/>
+<portused state="closed" proto="udp" portid="37590"/>
+<osmatch name="Apple macOS 11 (Big Sur) - 13 (Ventura) or iOS 16 (Darwin 20.6.0 - 22.4.0)" accuracy="100" line="8164">
+<osclass type="general purpose" vendor="Apple" osfamily="macOS" osgen="11.X" accuracy="100"><cpe>cpe:/o:apple:mac_os_x:11</cpe></osclass>
+<osclass type="general purpose" vendor="Apple" osfamily="macOS" osgen="12.X" accuracy="100"><cpe>cpe:/o:apple:mac_os_x:12</cpe></osclass>
+<osclass type="general purpose" vendor="Apple" osfamily="macOS" osgen="13.X" accuracy="100"><cpe>cpe:/o:apple:mac_os_x:13</cpe></osclass>
+<osclass type="phone" vendor="Apple" osfamily="iOS" osgen="16.X" accuracy="100"><cpe>cpe:/o:apple:iphone_os:16</cpe></osclass>
+</osmatch>
+</os>
+<uptime seconds="18" lastboot="Thu Nov  5 13:56:31 2026"/>
+<distance value="1"/>
+<tcpsequence index="256" difficulty="Good luck!" values="4C59CC3B,F60B621A,2B9F833,C2C5E6B1,87F82189,44EA3B78"/>
+<ipidsequence class="All zeros" values="0,0,0,0,0,0"/>
+<tcptssequence class="other" values="AF11E479,8F7FD33D,CF6D03BA,9C37711C,4B91BD64,6A4144EE"/>
+<times srtt="21130" rttvar="25281" to="122254"/>
+</host>
+<host starttime="1793912209" endtime="1793912231"><status state="up" reason="localhost-response" reason_ttl="0"/>
+<address addr="192.168.1.4" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="94">
+<extrareasons reason="reset" count="94" proto="tcp" ports="7,9,13,21-23,25-26,37,53,79-81,88,106,110-111,113,119,143-144,179,199,389,427,443-444,465,513-515,543-544,548,554,587,631,646,873,990,993,995,1025-1029,1110,1433,1720,1723,1755,1900,2000-2001,2049,2121,2717,3000,3128,3389,3986,4899,5000,5009,5051,5060,5101,5190,5631,5666,5800,5900,6000-6001,6646,7070,8000,8008-8009,8080-8081,8443,8888,9100,9999-10000,32768,49152-49157"/>
+</extraports>
+<port protocol="tcp" portid="135"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="msrpc" product="Microsoft Windows RPC" ostype="Windows" method="probed" conf="10"><cpe>cpe:/o:microsoft:windows</cpe></service></port>
+<port protocol="tcp" portid="139"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="netbios-ssn" product="Microsoft Windows netbios-ssn" ostype="Windows" method="probed" conf="10"><cpe>cpe:/o:microsoft:windows</cpe></service></port>
+<port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="microsoft-ds" method="table" conf="3"/></port>
+<port protocol="tcp" portid="3306"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="mysql" product="MySQL" extrainfo="unauthorized" method="probed" conf="10"><cpe>cpe:/a:mysql:mysql</cpe></service></port>
+<port protocol="tcp" portid="5357"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="wsdapi" method="table" conf="3"/></port>
+<port protocol="tcp" portid="5432"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="postgresql" product="PostgreSQL DB" method="probed" conf="10"><cpe>cpe:/a:postgresql:postgresql</cpe></service></port>
+</ports>
+<os><portused state="open" proto="tcp" portid="135"/>
+<portused state="closed" proto="tcp" portid="7"/>
+<portused state="closed" proto="udp" portid="31346"/>
+<osmatch name="Microsoft Windows 11 24H2 - 25H2" accuracy="99" line="76668">
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="11" accuracy="99"><cpe>cpe:/o:microsoft:windows_11</cpe></osclass>
+</osmatch>
+<osmatch name="Microsoft Windows 11 23H2" accuracy="98" line="76577">
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="11" accuracy="98"><cpe>cpe:/o:microsoft:windows_11</cpe></osclass>
+</osmatch>
+<osmatch name="Microsoft Windows 10 1607 - 11 23H2" accuracy="96" line="75728">
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="10" accuracy="96"><cpe>cpe:/o:microsoft:windows_10</cpe></osclass>
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="11" accuracy="96"><cpe>cpe:/o:microsoft:windows_11</cpe></osclass>
+</osmatch>
+<osmatch name="Microsoft Windows 10 1703 or Windows 11 21H2 - 23H2" accuracy="96" line="75881">
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="10" accuracy="96"><cpe>cpe:/o:microsoft:windows_10</cpe></osclass>
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="11" accuracy="96"><cpe>cpe:/o:microsoft:windows_11</cpe></osclass>
+</osmatch>
+<osmatch name="Microsoft Windows 10 1511" accuracy="95" line="75485">
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="10" accuracy="95"><cpe>cpe:/o:microsoft:windows_10</cpe></osclass>
+</osmatch>
+<osmatch name="Microsoft Windows 11 24H2" accuracy="95" line="76595">
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="11" accuracy="95"><cpe>cpe:/o:microsoft:windows_11</cpe></osclass>
+</osmatch>
+<osmatch name="Microsoft Windows 11 21H2" accuracy="94" line="76523">
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="11" accuracy="94"><cpe>cpe:/o:microsoft:windows_11</cpe></osclass>
+</osmatch>
+<osmatch name="Microsoft Windows Server 2008 R2 SP1 or Windows 7 SP1" accuracy="94" line="81660">
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="2008" accuracy="94"><cpe>cpe:/o:microsoft:windows_server_2008:r2</cpe></osclass>
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="7" accuracy="94"><cpe>cpe:/o:microsoft:windows_7</cpe></osclass>
+</osmatch>
+<osmatch name="Microsoft Windows 7 SP1" accuracy="93" line="84415">
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="7" accuracy="93"><cpe>cpe:/o:microsoft:windows_7::sp1</cpe></osclass>
+</osmatch>
+<osmatch name="Microsoft Windows 10 1803" accuracy="93" line="75962">
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="10" accuracy="93"><cpe>cpe:/o:microsoft:windows_10</cpe></osclass>
+</osmatch>
+<osfingerprint fingerprint="OS:SCAN(V=7.993%E=4%D=11/5%OT=135%CT=7%CU=31346%PV=Y%DS=0%DC=L%G=Y%TM=6AECE&#xa;OS:DA7%P=i686-pc-windows-windows)SEQ(SP=101%GCD=1%ISR=108%TI=I%CI=I%TS=A)SE&#xa;OS:Q(SP=104%GCD=1%ISR=10B%TI=I%CI=I%TS=A)SEQ(SP=F5%GCD=1%ISR=103%TI=I%CI=I%&#xa;OS:II=I%SS=S%TS=A)SEQ(SP=FA%GCD=1%ISR=107%TI=I%CI=I%TS=A)SEQ(SP=FF%GCD=1%IS&#xa;OS:R=10D%TI=I%CI=I%TS=A)OPS(O1=MFFD7NW8ST11%O2=MFFD7NW8ST11%O3=MFFD7NW8NNT1&#xa;OS:1%O4=MFFD7NW8ST11%O5=MFFD7NW8ST11%O6=MFFD7ST11)WIN(W1=FFFF%W2=FFFF%W3=FF&#xa;OS:FF%W4=FFFF%W5=FFFF%W6=FFFF)ECN(R=Y%DF=Y%T=80%W=FFFF%O=MFFD7NW8NNS%CC=N%Q&#xa;OS:=)T1(R=Y%DF=Y%T=80%S=O%A=S+%F=AS%RD=0%Q=)T2(R=Y%DF=Y%T=80%W=0%S=Z%A=S%F=&#xa;OS:AR%O=%RD=0%Q=)T3(R=Y%DF=Y%T=80%W=0%S=Z%A=O%F=AR%O=%RD=0%Q=)T4(R=Y%DF=Y%T&#xa;OS:=80%W=0%S=A%A=O%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=80%W=0%S=Z%A=S+%F=AR%O=%RD=&#xa;OS:0%Q=)T6(R=Y%DF=Y%T=80%W=0%S=A%A=O%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=80%W=0%S=&#xa;OS:Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=80%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=&#xa;OS:G%RUCK=G%RUD=G)IE(R=N)IE(R=Y%DFI=N%T=80%CD=Z)&#xa;"/>
+</os>
+<uptime seconds="1117792" lastboot="Fri Oct 23 15:27:19 2026"/>
+<distance value="0"/>
+<tcpsequence index="257" difficulty="Good luck!" values="81D3B3BD,4CF046F6,24886F36,3671AD43,89F4D94D,35DF2EF0"/>
+<ipidsequence class="Incremental" values="3AAB,3AAD,3AAF,3AB1,3AB3,3AB5"/>
+<tcptssequence class="1000HZ" values="42A0253E,42A025B0,42A02617,42A02680,42A026E4,42A02751"/>
+<times srtt="880" rttvar="717" to="100000"/>
+</host>
+<runstats><finished time="1793912231" timestr="Thu Nov  5 13:57:11 2026" summary="Nmap done at Thu Nov  5 13:57:11 2026; 3 IP addresses (3 hosts up) scanned in 71.38 seconds" elapsed="71.38" exit="success"/><hosts up="3" down="0" total="3"/>
+</runstats>
+</nmaprun>
