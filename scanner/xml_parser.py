@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET
+from vulnerability_identifier import determine_vulnerability 
 
 def parse_results(filename):
     tree = ET.parse(filename)
@@ -61,7 +62,7 @@ def parse_results(filename):
         for port in host.findall('ports/port'):
 
             # find port state
-            find_state = host.find('state')
+            find_state = port.find('state')
 
             if find_state is not None:
                 state = find_state.get('state')
@@ -69,7 +70,7 @@ def parse_results(filename):
                 state = None
 
             # find port service
-            find_service = host.find('service')
+            find_service = port.find('service')
 
             if find_service is not None:
                 service = find_service.get('name')
@@ -81,13 +82,13 @@ def parse_results(filename):
                 version = None
 
             # find port
-            port = int(port.get('portid'))
+            port_number = int(port.get('portid'))
 
             # find protocol
             protocol = port.get('protocol')
 
             port_info = {
-                'port': port,
+                'port': port_number,
                 'protocol': protocol,
                 'state': state,
                 'service': service,

@@ -13,6 +13,8 @@ Commands used:
 '''
 import nmap
 from device_type_guesser import guess_type, TYPES
+from xml_parser import parse_results
+from vulnerability_identifier import determine_vulnerability
 
 def discover_hosts(address):
     choice = ""
@@ -53,9 +55,14 @@ def scan_hosts(live, choice):
     scan_options = "-sS -sV --version-light -O --osscan-limit --top-ports 100 -T4"
     print(f"Scanning {len(live)} hosts with: {scan_options}")
     nm.scan(hosts=" ".join(live), arguments=scan_options)
-    with open("scan_results.xml", "wb") as f:
+    
+    scan_file = "scan_results.xml"
+    with open(scan_file, "wb") as f:
         f.write(nm.get_nmap_last_output())
-
+    hosts = parse_results(scan_file)
+    risk_score = determine_vulnerability(hosts)
+    print(f"\nNetwork Risk Score: {risk_score}")
+    
     shown = 0
     for host in nm.all_hosts():
         dtype = guess_type(nm, host)
