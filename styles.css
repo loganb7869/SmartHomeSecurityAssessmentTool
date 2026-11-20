@@ -1,0 +1,429 @@
+/* styles.css - how everything looks.
+   Colours are set once at the top (light and dark mode), and everything below uses them with var(--name).
+   Each rule has a comment above it saying what part of the page it's for. */
+/* colours, fonts and sizes we reuse everywhere (light mode) */
+:root{
+  --bg:#f7f7f4; --panel:#ffffff; --ink:#26251e; --muted:#7a7972; --line:#e4e3dd; --soft:#f0efea;
+  --accent:#26251e; --accent-ink:#f7f7f4;
+  --stage-a:#e9e4d8; --stage-b:#dfe3df; --chrome:#f3f2ee;
+  --c-phone:#3b6fd4; --c-computer:#7a5bd0; --c-console:#cf503c; --c-tv:#b07d0c; --c-iot:#3a8f5c; --c-unknown:#8a8982;
+  --warn:#9a5a0b; --warn-bg:#fbf1e2;
+  /* System fonts only: nothing is downloaded, so the page looks the same offline */
+  --f-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI Variable","Segoe UI",system-ui,Roboto,sans-serif;
+  --f-body:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI Variable","Segoe UI",system-ui,Roboto,sans-serif;
+  --f-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Cascadia Mono",monospace;
+  --sev-critical:#b4321f; --sev-high:#c2410c; --sev-medium:#9a5a0b; --sev-low:#5d6b7a; --good:#2f7d4f;
+}
+/* dark mode colours, used when the computer is set to dark mode */
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#14120b; --panel:#1b1913; --ink:#edecec; --muted:#9a9890; --line:#2c2a23; --soft:#211f18;
+  --accent:#edecec; --accent-ink:#14120b;
+  --stage-a:#2a251a; --stage-b:#1c2421; --chrome:#191710;
+  --c-phone:#7ea6f2; --c-computer:#ab95ef; --c-console:#f08a78; --c-tv:#e3b65c; --c-iot:#72c99a; --c-unknown:#7f7d76;
+  --warn:#efb06a; --warn-bg:#2b2116; --sev-critical:#ff8a73; --sev-high:#fb9a5c; --sev-medium:#efb06a; --sev-low:#a5b1bf; --good:#72c99a; color-scheme:dark}}
+/* same dark colours, forced on */
+:root[data-theme="dark"]{
+  --bg:#14120b; --panel:#1b1913; --ink:#edecec; --muted:#9a9890; --line:#2c2a23; --soft:#211f18;
+  --accent:#edecec; --accent-ink:#14120b;
+  --stage-a:#2a251a; --stage-b:#1c2421; --chrome:#191710;
+  --c-phone:#7ea6f2; --c-computer:#ab95ef; --c-console:#f08a78; --c-tv:#e3b65c; --c-iot:#72c99a; --c-unknown:#7f7d76;
+  --warn:#efb06a; --warn-bg:#2b2116; --sev-critical:#ff8a73; --sev-high:#fb9a5c; --sev-medium:#efb06a; --sev-low:#a5b1bf; --good:#72c99a; color-scheme:dark}
+
+/* width includes padding and border, which makes sizes way easier */
+*{box-sizing:border-box}
+/* page background, text colour and font, plus space around the edges (and the iPhone notch) */
+body{background:var(--bg);color:var(--ink);font:14.5px/1.55 var(--f-body);-webkit-font-smoothing:antialiased;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:48px 72px}
+/* keeps the page from getting too wide on big screens and centres it */
+.wrap{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:36px}
+/* monospace font for IPs and MACs, so the numbers line up */
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+/* form controls use the same font as the page (browsers don't do this by default) */
+button,select,input{font:inherit;color:inherit}
+/* a clear outline on whatever you've tabbed to with the keyboard */
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ---------- header (title, Network box, buttons) ---------- */
+/* the top part: title, buttons */
+header{display:flex;flex-direction:column;align-items:flex-start;gap:24px}
+/* the big "Device Scanner" title, grows with the window size */
+.brand h1{font:500 clamp(34px,5.2vw,56px)/1.02 var(--f-display);letter-spacing:-.045em;margin:0;text-wrap:balance}
+/* the grey line under the title */
+.brand p{margin:14px 0 0;color:var(--muted);font-size:17px;max-width:46ch;letter-spacing:-.01em}
+/* the row of buttons, wraps onto two lines on small screens */
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+/* the rounded box around the Network input */
+.field{display:flex;align-items:center;gap:8px;background:var(--soft);border:1px solid transparent;border-radius:999px;padding:0 16px;height:42px;transition:border-color .15s}
+/* darker border while you're typing in it */
+.field:focus-within{border-color:var(--muted)}
+/* the small "Network or IP" label */
+.field label{font-size:12px;color:var(--muted)}
+/* the Network text box itself */
+.field input{border:0;background:transparent;width:150px;outline:none;font-family:var(--f-mono);font-size:14px}
+/* every rounded button */
+.btn{height:42px;border-radius:999px;font-size:15px;transition:border-color .15s,background .15s,opacity .15s;border:1px solid transparent;background:var(--soft);padding:0 20px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-weight:500}
+/* slight border when you hover */
+.btn:hover{border-color:var(--line)}
+/* the dark "Scan network" button */
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+/* fade it a little on hover */
+.btn.primary:hover{background:var(--accent);opacity:.88}
+/* disabled buttons look faded */
+.btn[disabled]{opacity:.6;cursor:progress}
+/* the real file picker is hidden */
+.btn input[type=file]{display:none}
+
+/* ---------- status line ---------- */
+/* the status line under the window title */
+.status{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;font:12.5px var(--f-mono);color:var(--muted)}
+/* the bold part of the status */
+.status b{color:var(--ink);font-weight:500}
+/* the little dot at the start of the status */
+.dot{width:8px;height:8px;border-radius:50%;background:var(--c-iot);display:inline-block;margin-right:6px}
+/* the dot blinks while scanning */
+.status.scanning .dot{background:var(--accent);animation:pulse 1s infinite}
+/* the blink animation */
+@keyframes pulse{50%{opacity:.25}}
+/* the progress bar track */
+.progress{flex:1 1 160px;height:4px;background:var(--soft);border-radius:2px;overflow:hidden;min-width:120px}
+/* the filled part of the progress bar */
+.progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
+/* the small tag at the end of the status ("Your network", "Saved scan"...) */
+.demo-tag{font-size:12px;border:1px solid var(--line);padding:1px 9px;border-radius:99px;background:var(--soft)}
+
+/* ---------- What's connected + map ---------- */
+/* the two boxes side by side (What's connected + the map) */
+.summary{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px}
+/* on small screens stack them instead */
+@media (max-width:820px){.summary{grid-template-columns:minmax(0,1fr)}}
+/* the light grey boxes */
+.panel{background:var(--soft);border-radius:12px;padding:18px 20px}
+/* box titles */
+.panel h2{font:500 14px/1 var(--f-display);letter-spacing:-.01em;margin:0 0 16px;color:var(--ink);display:flex;justify-content:space-between;gap:8px}
+/* the grey number on the right of a box title */
+.panel h2 span{font:400 12px var(--f-mono);color:var(--muted);letter-spacing:0;text-transform:none}
+/* the coloured bar showing how many of each type */
+.mix{display:flex;height:8px;border-radius:99px;overflow:hidden;background:var(--soft);gap:2px}
+/* one piece of the coloured bar */
+.mix i{display:block;height:100%}
+/* the grid of type buttons */
+.legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px 8px;margin-top:14px}
+/* one type button (all:unset removes the browser's button look) */
+.legend button{all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:8px;font-size:14px;color:var(--muted);transition:background .15s,color .15s}
+/* highlight when hovered or selected */
+.legend button:hover,.legend button.on{background:var(--panel);color:var(--ink)}
+/* keyboard outline */
+.legend button:focus-visible{outline:2px solid var(--accent)}
+/* the count on the right of each type */
+.legend .n{margin-left:auto;font:400 13px var(--f-mono);color:var(--ink)}
+/* the little coloured circle */
+.sw{width:8px;height:8px;border-radius:50%;flex:none}
+/* the yellow "we're not sure about..." note */
+.attn{margin-top:14px;font-size:13px;color:var(--warn);background:var(--warn-bg);border:1px solid color-mix(in srgb,var(--warn) 25%,transparent);border-radius:10px;padding:8px 12px}
+/* actually hide it when it's hidden */
+.attn[hidden]{display:none}
+
+/* the map: 32 squares per row, 8 rows = 256 addresses */
+.map{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));gap:3px}
+/* one square */
+.map .cell{display:block;aspect-ratio:1;max-width:100%;border-radius:3px;background:var(--line);border:0;padding:0;min-width:0}
+/* squares with a device are clickable */
+.map .cell.on{cursor:pointer}
+/* outline the square you're on */
+.map .cell.on:hover,.map .cell.on:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+/* the router's square gets an outline */
+.map .cell.gw{outline:1.5px solid var(--muted);outline-offset:1px}
+/* new devices get a yellow ring */
+.map .cell.new{box-shadow:0 0 0 2px var(--panel),0 0 0 3.5px var(--warn)}
+/* the text under the map */
+.mapkey{font-size:13px;color:var(--muted);margin-top:10px}
+/* keep the space even when the text is empty (so the page doesn't jump) */
+#mapTip{min-height:20px}
+
+/* ---------- device list ---------- */
+/* "All devices" title + the search box */
+.listhead{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+/* the "All devices" title */
+.listhead h2{font:600 20px/1.1 var(--f-display);letter-spacing:-.025em;margin:0}
+/* the search box width */
+.search{flex:0 1 260px}
+/* search box text */
+.search input{width:100%;font-family:var(--f-body)}
+/* search box colours */
+.search{background:var(--panel);border-color:var(--line);height:38px}
+/* the white box around the device list */
+.devices{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+/* the 7 columns of the device list (icon, name, type, address, ports, sure, arrow) */
+.row,.cols{display:grid;grid-template-columns:36px minmax(0,2fr) 168px 158px minmax(0,1.3fr) 130px 22px;gap:14px;align-items:center;padding:12px 16px}
+/* the column titles row */
+.cols{font-size:12.5px;color:var(--muted);border-bottom:1px solid var(--line);padding-block:9px}
+/* column titles are buttons (to sort) but shouldn't look like buttons */
+.cols button{all:unset;cursor:pointer;border-radius:4px}
+/* darker on hover */
+.cols button:hover{color:var(--ink)}
+/* keyboard outline */
+.cols button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* the little up/down arrow */
+.cols .arrow{font-size:11px}
+/* a line between devices */
+.dev{border-bottom:1px solid var(--line)}
+/* no line after the last one */
+.dev:last-child{border-bottom:0}
+/* a device row is a big button you can click */
+.row{cursor:pointer;width:100%;text-align:left;background:none;border:0;transition:background .12s}
+/* grey on hover */
+.row:hover{background:var(--soft)}
+/* grey while it's open too */
+.dev.open .row{background:var(--soft)}
+/* flashes when you jump to it from the map */
+.dev.flash .row{animation:flash 1.2s}
+/* the flash animation */
+@keyframes flash{0%,40%{background:color-mix(in srgb,var(--accent) 22%,transparent)}}
+/* the coloured square with the device icon */
+.ico{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:var(--c);background:color-mix(in srgb,var(--c) 12%,transparent);border:1px solid color-mix(in srgb,var(--c) 22%,transparent)}
+/* icon size */
+.ico svg{width:18px;height:18px}
+/* lets long names shrink instead of pushing other columns */
+.name{min-width:0}
+/* the device name (cut off with ... if too long) */
+.name b{display:block;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* the "Made by ..." line */
+.name small{display:block;color:var(--muted);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* same for the type column */
+.type{min-width:0}
+/* the rounded type label */
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:13px;padding:2px 10px;border-radius:99px;border:0;background:var(--soft);color:var(--ink);white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+/* the coloured dot in it */
+.chip .sw{background:var(--c);width:7px;height:7px;border-radius:50%}
+/* IP and MAC column */
+.ipmac{font-size:13px;line-height:1.35}
+/* don't let it push other columns */
+.ipmac{min-width:0;overflow:hidden}
+/* the MAC on its own line, smaller */
+.ipmac span{display:block;color:var(--muted);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* disabled buttons */
+.btn:disabled{opacity:.5;cursor:not-allowed}
+/* private (made-up) MACs are shown in orange */
+.rand{color:var(--warn)}
+/* the "What it's doing" tags */
+.ports{display:flex;flex-wrap:wrap;gap:4px;min-width:0}
+/* one tag */
+.port{font-size:12.5px;border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:var(--muted);background:var(--soft)}
+/* "Nothing open" */
+.none{color:var(--muted);font-size:13px}
+/* the "How sure we are" column */
+.conf{display:flex;align-items:center;gap:8px}
+/* the bar's track */
+.conf .bar{flex:1;height:4px;border-radius:99px;background:var(--line);overflow:hidden}
+/* the filled part, in the device type's colour */
+.conf .bar i{display:block;height:100%;background:var(--c)}
+/* "Very sure" etc. */
+.conf .pct{font-size:13px;width:78px;text-align:right;white-space:nowrap}
+/* chip turns white on grey rows so you can still see it */
+.dev.open .chip,.row:hover .chip{background:var(--panel)}
+/* the arrow on the right of each row */
+.chev{color:var(--muted);transition:transform .2s}
+/* it turns to point down when the row is open */
+.dev.open .chev{transform:rotate(90deg)}
+/* the "this is a best guess" note */
+.review{font-size:12.5px;color:var(--warn);font-weight:500}
+
+/* the part under a row when you open it: 3 columns */
+.detail{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) minmax(0,1fr);gap:24px;padding:6px 16px 20px 67px;background:var(--soft);border-top:1px dashed var(--line)}
+/* small headings in there */
+.detail h3{font:500 12.5px var(--f-display);color:var(--muted);margin:12px 0 10px}
+/* the points list */
+.scores{display:grid;gap:6px}
+/* one line: type name, bar, number */
+.sc{display:grid;grid-template-columns:132px minmax(0,1fr) 26px;gap:8px;align-items:center;font-size:13px}
+/* bar track */
+.sc .bar{height:4px;border-radius:99px;background:var(--line);overflow:hidden}
+/* bar fill */
+.sc .bar i{display:block;height:100%;border-radius:99px}
+/* the number */
+.sc .v{font:12px var(--f-mono);text-align:right}
+/* the clue list */
+.reasons{list-style:none;margin:0;padding:0;display:grid;gap:5px;font-size:13px}
+/* one clue: points on the left, sentence on the right */
+.reasons li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:8px}
+/* the +5 etc. */
+.reasons .pts{font:500 12px var(--f-mono);color:var(--c);text-align:right}
+/* long words can break so they don't overflow */
+.reasons .why{overflow-wrap:anywhere}
+/* the "(points for ...)" bit */
+.reasons em{font-style:normal;color:var(--muted)}
+/* the details list: label on the left, value on the right */
+dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;font-size:13px}
+/* labels */
+dt{color:var(--muted)}
+/* values */
+dd{margin:0;font-family:var(--f-mono);font-size:12px;overflow-wrap:anywhere}
+/* "No devices yet" message */
+.empty{padding:28px;text-align:center;color:var(--muted)}
+/* small text at the bottom */
+footer{font-size:13px;color:var(--muted);max-width:70ch}
+
+/* ---------- the window everything sits in ---------- */
+/* the soft coloured background behind the window */
+.stage{border-radius:18px;padding:clamp(10px,4vw,48px);background:radial-gradient(120% 90% at 0% 0%,var(--stage-a),transparent 60%),radial-gradient(120% 90% at 100% 100%,var(--stage-b),transparent 60%),var(--soft)}
+/* the white window with the shadow */
+.window{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.04),0 24px 60px -24px rgba(38,37,30,.28)}
+/* the window's top bar */
+.titlebar{display:flex;align-items:center;gap:14px;padding:10px 14px;background:var(--chrome);border-bottom:1px solid var(--line);font:12.5px var(--f-mono);color:var(--muted)}
+/* the three grey dots (like a Mac window) */
+.lights{display:flex;gap:6px}.lights i{width:11px;height:11px;border-radius:50%;background:var(--line)}
+/* the window title */
+.titlebar .t{flex:1;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* empty space on the right so the title stays centred */
+.titlebar .sp{width:45px}
+/* everything inside the window */
+.win-body{display:flex;flex-direction:column;gap:18px;padding:18px}
+/* less padding on phones */
+@media (max-width:600px){.win-body{padding:12px}.titlebar .sp{display:none}}
+/* code text in the footer */
+footer code{font-family:var(--f-mono);font-size:12px}
+
+/* on smaller screens the device list uses 2 lines per device instead of 7 columns */
+@media (max-width:900px){
+  .cols{display:none}
+  .row{grid-template-columns:36px minmax(0,1fr) auto 18px;grid-template-areas:"i n t c" "i a f f";row-gap:8px}
+  .row>.ico{grid-area:i;align-self:start}.row>.name{grid-area:n}.row>.type{grid-area:t}.row>.chev{grid-area:c}
+  .row>.ipmac{grid-area:a}.row>.conf{grid-area:f}.row>.ports{display:none}
+  .detail{grid-template-columns:minmax(0,1fr);padding-left:16px;gap:4px}
+}
+/* turn off animations for people who asked their computer to reduce motion */
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---- accessibility helpers ---- */
+/* hidden on screen but still read by screen readers */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+/* the "Skip to results" link, off screen until you press Tab */
+.skip{position:absolute;left:12px;top:-60px;background:var(--accent);color:var(--accent-ink);padding:8px 14px;border-radius:8px;z-index:10;text-decoration:none}
+/* slides in when focused */
+.skip:focus{top:12px}
+/* keyboard outline on rows */
+.row:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+/* make sure hidden things are really hidden */
+[hidden]{display:none!important}
+
+/* ---- controls ---- */
+/* the red Stop button */
+.btn.danger{background:var(--sev-critical);color:#fff;border-color:var(--sev-critical)}
+/* the Saved scans menu: our own arrow instead of the browser's */
+select.btn{appearance:none;-webkit-appearance:none;padding-right:34px;background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);background-position:calc(100% - 18px) 52%,calc(100% - 13px) 52%;background-size:5px 5px;background-repeat:no-repeat;max-width:300px;text-overflow:ellipsis}
+/* small buttons (rename) */
+.btn.small{height:30px;font-size:13px;padding:0 12px;background:var(--panel);border-color:var(--line)}
+/* buttons that look like links (device names in the problem list) */
+.link{all:unset;cursor:pointer;color:var(--ink);text-decoration:underline;text-underline-offset:2px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px}
+/* keyboard outline */
+.link:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* the device list section */
+.listsec{display:flex;flex-direction:column;gap:10px}
+
+/* ---- device badges, security in details, rename ---- */
+/* small labels next to device names (New, 2 to check) */
+.badge{display:inline-block;margin-left:8px;font:600 10.5px/1 var(--f-mono);padding:3px 6px;border-radius:5px;vertical-align:2px;text-transform:uppercase;letter-spacing:.03em}
+/* yellow "New" */
+.badge.new{background:var(--warn-bg);color:var(--warn);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent)}
+/* badge colours by urgency */
+.badge.sev-high{background:color-mix(in srgb,var(--sev-high) 14%,transparent);color:var(--sev-high)}
+.badge.sev-medium{background:color-mix(in srgb,var(--sev-medium) 14%,transparent);color:var(--sev-medium)}
+.badge.sev-low{background:color-mix(in srgb,var(--sev-low) 14%,transparent);color:var(--sev-low)}
+/* the problem list inside a device's details */
+.dissues{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:13px}
+/* one problem, with a coloured line on the left */
+.dissues li{border-left:3px solid var(--sev-low);padding-left:10px;color:var(--muted)}
+/* its title */
+.dissues li b{color:var(--ink);font-weight:500}
+/* line colour by urgency */
+.dissues li.sev-high{border-left-color:var(--sev-high)} .dissues li.sev-medium{border-left-color:var(--sev-medium)}
+/* "Nothing to fix on this device" */
+.ok{font-size:13px;color:var(--good);margin:0}
+/* the rename area */
+.rename{margin-bottom:10px}
+/* input + Save + Cancel in a row */
+.rename form{display:flex;gap:6px;flex-wrap:wrap}
+/* the rename text box */
+.rename input{flex:1 1 140px;min-width:0;height:30px;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:0 10px}
+/* critical problems get the red line */
+.finding.sev-critical{border-left-color:var(--sev-critical)}
+/* and red text */
+.sev-critical .sev{color:var(--sev-critical)}
+/* and a red badge */
+.badge.sev-critical{background:color-mix(in srgb,var(--sev-critical) 14%,transparent);color:var(--sev-critical)}
+/* and a red line in device details */
+.dissues li.sev-critical{border-left-color:var(--sev-critical)}
+/* the "For the technically curious" part */
+.finding .tech{padding:0 14px 10px 122px;font-size:12.5px;color:var(--muted)}
+/* its clickable title */
+.finding .tech summary{display:block;padding:0;cursor:pointer}
+/* its lists */
+.finding .tech ul{margin:4px 0 8px;padding-left:18px}
+/* its paragraphs */
+.finding .tech p{padding:0;margin:6px 0}
+/* a device's own score next to "Safety check" */
+.dscore{font:12px var(--f-mono);color:var(--ink);margin-left:6px}
+/* less indent on small screens */
+@media (max-width:700px){.finding .tech{padding-left:14px}}
+
+/* ---------- the safety score dropdown ---------- */
+/* hint under the buttons explaining you can type a single IP */
+.hint{margin:-12px 0 0;font-size:13px;color:var(--muted);max-width:70ch}
+/* the box itself, no padding because the bar inside has its own */
+.report{padding:0}
+/* the bar you click to open/close: score, words, counts, then "Show what to fix" on the right */
+.report summary{display:flex;align-items:center;gap:16px;padding:12px 16px;cursor:pointer;list-style:none;border-radius:12px}
+/* hide the browser's default triangle (Safari/Chrome) */
+.report summary::-webkit-details-marker{display:none}
+/* keyboard outline */
+.report summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* the coloured score box */
+.grade{flex:none;min-width:74px;height:46px;padding:0 10px;border-radius:12px;display:flex;align-items:baseline;justify-content:center;gap:2px;padding-top:11px;font:600 24px/1 var(--f-display);font-variant-numeric:tabular-nums;color:var(--panel);background:var(--muted)}
+/* the small "/100" */
+.grade small{font-size:11px;font-weight:500;opacity:.85}
+/* score box colours: green for good, amber for fair, red for poor or at risk */
+.grade[data-band="excellent"]{background:var(--good)}
+.grade[data-band="good"]{background:color-mix(in srgb,var(--good) 60%,var(--sev-medium))}
+.grade[data-band="fair"]{background:var(--sev-medium)}
+.grade[data-band="poor"],.grade[data-band="at_risk"]{background:var(--sev-critical)}
+/* the words in the middle take up the free space */
+.rtext{flex:1;min-width:0;font-size:14.5px}
+/* the counts line ("1 to fix now · 2 worth fixing") */
+.gmeta{display:block;margin-top:2px;font:12.5px var(--f-mono);color:var(--muted)}
+/* "Show what to fix" + arrow on the right */
+.rtoggle{flex:none;display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);white-space:nowrap}
+/* the arrow turns upside down when it's open */
+.rtoggle svg{transition:transform .2s}
+.report[open] .rtoggle svg{transform:rotate(180deg)}
+/* swap the words: "Show what to fix" when closed, "Hide" when open */
+.rtoggle .hide,.report[open] .rtoggle .show{display:none}
+.report[open] .rtoggle .hide{display:inline}
+/* the part that drops down */
+.report-body{padding:0 16px 16px;border-top:1px dashed var(--line)}
+/* "Compared with your scan from ..." */
+.compared{margin:10px 0;font-size:13px;color:var(--muted)}
+/* the list of problems */
+.findings{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+/* one problem: white card with a coloured line on the left (grey by default) */
+.finding{background:var(--panel);border-radius:10px;border-left:4px solid var(--sev-low)}
+/* line colour by urgency */
+.finding.sev-high{border-left-color:var(--sev-high)}
+.finding.sev-medium{border-left-color:var(--sev-medium)}
+/* each problem is its own little dropdown: urgency tag, title, then the device name */
+.finding summary{display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 14px;cursor:pointer;list-style:none}
+.finding summary::-webkit-details-marker{display:none}
+.finding summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;border-radius:10px}
+/* "Why it matters" and "What to do", lined up under the title */
+.finding p{margin:0;padding:0 14px 10px 122px;font-size:13.5px;color:var(--muted)}
+.finding p b{color:var(--ink);font-weight:500}
+/* "We didn't find anything to fix" */
+.finding.none-found{padding:12px 14px;border-left-color:var(--good);color:var(--good)}
+/* problem title */
+.ftitle{font-weight:500}
+/* the urgency tag text, coloured by urgency */
+.sev{font:600 11px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.04em;color:var(--sev-low)}
+.sev-high .sev{color:var(--sev-high)} .sev-medium .sev{color:var(--sev-medium)}
+/* "Not seen this time: ..." */
+.gone{margin:12px 0 0;font-size:13px;color:var(--muted)}
+/* small screens: stack the problem's parts and drop the "Show what to fix" words */
+@media (max-width:700px){.finding summary{grid-template-columns:minmax(0,1fr)}.finding p{padding-left:14px}.rtoggle .show,.rtoggle .hide{display:none!important}.report summary{gap:12px}}

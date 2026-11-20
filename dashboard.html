@@ -1,0 +1,111 @@
+<!doctype html>
+<!-- dashboard.html - the page server.py shows. The layout is here, the look is in styles.css,
+     and everything that moves is in labels.js / render.js / dashboard.js (loaded at the bottom) -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Device Scanner</title>
+<link rel="icon" href="data:,">  <!-- empty icon, so the browser doesn't ask the server for favicon.ico -->
+<link rel="stylesheet" href="styles.css?v=9">  <!-- ?v=9 makes the browser load the new version instead of an old saved one -->
+</head><body>
+<a class="skip" href="#report">Skip to results</a>  <!-- only shows up when you press Tab, for keyboard users -->
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <h1>Device Scanner</h1>
+      <p>See everything connected to your Wi-Fi, what each thing is, how we can tell, and what to fix.</p>
+    </div>
+    <div class="controls">
+      <!-- the network box: a whole network (192.168.1.0/24) or any single IP on it (192.168.1.1) -->
+      <div class="field"><label for="cidr">Network or IP</label>
+        <input id="cidr" value="192.168.1.0/24" spellcheck="false" autocomplete="off" placeholder="e.g. 192.168.1.1" aria-describedby="cidrHelp"></div>
+      <button class="btn primary" id="scanBtn" type="button">
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M5.6 5.6a9 9 0 0 0 0 12.8M18.4 5.6a9 9 0 0 1 0 12.8M8.5 8.5a5 5 0 0 0 0 7M15.5 8.5a5 5 0 0 1 0 7"/></svg>
+        Scan network</button>
+      <button class="btn danger" id="cancelBtn" type="button" hidden>Stop scan</button>  <!-- swaps with Scan while scanning -->
+      <!-- one menu for every saved scan, plus "open a file" at the bottom -->
+      <label class="sr-only" for="scanMenu">Saved scans</label>
+      <select class="btn" id="scanMenu"><option value="">Saved scans</option></select>
+      <input type="file" id="fileIn" accept=".json,application/json" hidden>  <!-- hidden, the menu opens it -->
+      <button class="btn" id="saveBtn" type="button" disabled>Save a copy</button>
+      <button class="btn" id="reportBtn" type="button" hidden>Open plain-English report</button>
+    </div>
+    <p class="hint" id="cidrHelp">Don't know your network? Type any IP on it (like your router's, usually 192.168.1.1 or 192.168.0.1) and we'll scan the whole thing.</p>
+  </header>
+
+  <main class="stage"><div class="window">
+    <div class="titlebar"><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span><span class="t" id="winTitle">Your network · 192.168.1.0/24</span><span class="sp"></span></div>
+    <div class="win-body">
+      <!-- status line: what's happening + the progress bar. aria-live makes screen readers read changes out loud -->
+      <div class="status" id="status" role="status" aria-live="polite">
+        <span><span class="dot" aria-hidden="true"></span><b id="stState">Not scanned yet</b></span>
+        <span id="stMeta"></span>
+        <div class="progress" hidden id="prog" role="progressbar" aria-label="Scan progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
+        <span class="demo-tag" id="srcTag">Not connected</span>
+      </div>
+
+      <!-- the safety score. <details> is a built-in dropdown: the <summary> is the bar you click,
+           everything after it only shows when it's open -->
+      <details class="panel report" id="report" hidden>
+        <summary>
+          <span class="grade" id="grade" aria-hidden="true">?</span>
+          <span class="rtext">
+            <span class="sr-only" id="summaryLabel"></span>
+            <b aria-hidden="true">Safety score</b> <span id="gradeWords" aria-hidden="true"></span>
+            <span class="gmeta" id="gradeMeta" aria-hidden="true"></span>
+          </span>
+          <span class="rtoggle" aria-hidden="true"><span class="show">Show what to fix</span><span class="hide">Hide</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m6 9 6 6 6-6"/></svg></span>
+        </summary>
+        <div class="report-body">
+          <p class="compared" id="compared"></p>
+          <ul class="findings" id="findings"></ul>
+          <p class="gone" id="gone" hidden></p>
+        </div>
+      </details>
+
+      <section class="summary">
+        <div class="panel">
+          <h2>What's connected <span id="total"></span></h2>
+          <div class="mix" id="mix" aria-hidden="true"></div>
+          <div class="legend" id="legend" role="group" aria-label="Show only one type"></div>
+          <div class="attn" id="attn" hidden></div>
+        </div>
+        <div class="panel">
+          <h2>Your network at a glance <span id="mapNet">192.168.1.0/24</span></h2>
+          <div class="map" id="map" role="group" aria-label="Map of every address on your network"></div>
+          <div class="mapkey"><span id="mapTip">Each square is one spot on your network. Pick a colored one to see that device.</span></div>
+        </div>
+      </section>
+
+      <section class="listsec" aria-labelledby="listTitle">
+        <div class="listhead">
+          <h2 id="listTitle">All devices</h2>
+          <div class="field search"><input id="q" type="search" placeholder="Search by name, maker or address" aria-label="Search devices"></div>
+        </div>
+        <div class="devices">
+          <!-- column titles. The buttons sort the list -->
+          <div class="cols" role="row">
+            <span></span>
+            <span role="columnheader"><button type="button" data-sort="name">Device <span class="arrow" aria-hidden="true"></span></button></span>
+            <span role="columnheader"><button type="button" data-sort="category">Type <span class="arrow" aria-hidden="true"></span></button></span>
+            <span role="columnheader"><button type="button" data-sort="ip">Address <span class="arrow" aria-hidden="true"></span></button></span>
+            <span role="columnheader">What it's doing</span>
+            <span role="columnheader"><button type="button" data-sort="confidence">How sure we are <span class="arrow" aria-hidden="true"></span></button></span>
+            <span></span>
+          </div>
+          <div id="list" role="list" aria-label="Devices"></div>  <!-- render.js fills this in -->
+        </div>
+      </section>
+    </div>
+  </div></main>
+
+  <footer>
+    Everything stays on this computer. Every scan is saved in Documents/Device Scanner: the full results in "scans" and a plain-English report in "reports".
+    Only scan networks that belong to you or that you have permission to check.
+  </footer>
+</div>
+
+<!-- the order matters: dashboard.js uses things from the other two -->
+<script src="labels.js?v=9"></script>
+<script src="render.js?v=9"></script>
+<script src="dashboard.js?v=9"></script>
+</body></html>

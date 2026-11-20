@@ -1,0 +1,22 @@
+{
+  "6A:32:01:20:EA:9D": {
+    "hostname": "iPhone",
+    "ip": "192.168.1.4"
+  },
+  "A6:54:0D:66:13:4A": {
+    "ip": "192.168.1.5",
+    "hostname": "iPhone"
+  },
+  "28:05:A5:B7:06:80": {
+    "hostname": "Afero Device",
+    "ip": "192.168.1.6"
+  },
+  "08:8F:C3:5D:9E:1E": {
+    "hostname": "JordanM",
+    "dhcp_class": "MSFT 5.0",
+    "ip": "192.168.1.7"
+  },
+  "82:A9:97:7B:C4:7F": {
+    "hostname": "Bs-iPad"
+  }
+}
